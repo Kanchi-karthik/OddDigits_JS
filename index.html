@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digits and Odd Numbers</title>
+</head>
+<body>
+  <p>Enter one or more numbers separated by commas (e.g., 43, 9, 7)</p>
+  <input type="button" onclick="analyzeNumbers()" value="Check Numbers" />
+
+  <script>
+    function analyzeNumbers() {
+      let input = prompt("Enter numbers separated by commas:", "");
+      
+      if (!input) {
+        alert("Please enter at least one number.");
+        return;
+      }
+
+      // Split input into array of numbers
+      let numbers = input.split(",").map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+
+      if (numbers.length === 0) {
+        alert("No valid numbers entered.");
+        return;
+      }
+
+      let results = "";
+
+      numbers.forEach(num => {
+        // Digits
+        let digits = num.toString().split("").map(Number);
+
+        // Odd digits
+        let oddDigits = digits.filter(d => d % 2 !== 0);
+
+        // Odd numbers up to n
+        let oddNumbers = [];
+        for (let i = 1; i <= num; i++) {
+          if (i % 2 !== 0) oddNumbers.push(i);
+        }
+
+        // Odd or even
+        let oddOrEven = (num % 2 === 0) ? "even" : "odd";
+
+        // Add result
+        results += 
+          "Number: " + num + "\n" +
+          "Digits: " + digits.join(", ") + "\n" +
+          "Odd digits: " + (oddDigits.length ? oddDigits.join(", ") : "none") + "\n" +
+          "Odd numbers up to " + num + ": " + oddNumbers.join(", ") + "\n" +
+          "The number " + num + " is " + oddOrEven + ".\n\n";
+      });
+
+      alert(results);
+    }
+  </script>
+</body>
+</html>
